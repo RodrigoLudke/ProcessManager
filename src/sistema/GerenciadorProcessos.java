@@ -1,35 +1,67 @@
 package sistema;
 
-import processos.Processo;
-import java.util.ArrayList;
+import processos.*;
+import java.util.Scanner;
 
 public class GerenciadorProcessos {
-    private ArrayList<Processo> fila = new ArrayList<>();
-    int proximoPid = 1;
+    private final int MAX = 100;
+    private Processo[] fila;
+    private int[] tamanho;
 
-    public void adicionarProcesso(Processo processo) {
-        fila.add(processo);
-        System.out.println("Processo adicionado com PID: " + processo.getPid());
+    public GerenciadorProcessos() {
+        this.fila = new Processo[MAX];
+        this.tamanho = new int[]{0};
     }
 
-    public void executarProximo() {
-        if (!fila.isEmpty()) {
-            Processo p = fila.remove(0);
-            p.executar();
-        } else {
-            System.out.println("Fila vazia.");
+    public void criarProcesso(int tipo, Scanner sc) {
+        if (tamanho[0] >= MAX) {
+            System.out.println("Fila cheia!");
+            return;
+        }
+
+        switch (tipo) {
+            case 1 -> criarProcessoCalculo(sc);
+            case 2 -> criarProcessoGravacao(sc);
+            case 3 -> criarProcessoLeitura();
+            case 4 -> criarProcessoImpressao();
+            default -> System.out.println("Tipo inválido!");
         }
     }
 
-    public void executarPorPid(int pid) {
-        for (int i = 0; i < fila.size(); i++) {
-            if (fila.get(i).getPid() == pid) {
-                Processo p = fila.remove(i);
-                p.executar();
-                return;
-            }
-        }
-        System.out.println("Processo não encontrado.");
+    private void criarProcessoCalculo(Scanner sc) {
+        System.out.print("Digite a expressão (ex: 5 + 3): ");
+        String[] tokens = sc.nextLine().split(" ");
+        fila[tamanho[0]++] = new ProcessoCalculo(new Expressao(
+                Double.parseDouble(tokens[0]),
+                Double.parseDouble(tokens[2]),
+                tokens[1].charAt(0)
+        ));
     }
 
+    private void criarProcessoGravacao(Scanner sc) {
+        System.out.print("Digite a expressão para gravar: ");
+        String[] tokens = sc.nextLine().split(" ");
+        fila[tamanho[0]++] = new ProcessoGravacao(new Expressao(
+                Double.parseDouble(tokens[0]),
+                Double.parseDouble(tokens[2]),
+                tokens[1].charAt(0)
+        ));
+    }
+
+    private void criarProcessoLeitura() {
+        fila[tamanho[0]++] = new ProcessoLeitura(fila, tamanho);
+    }
+
+    private void criarProcessoImpressao() {
+        fila[tamanho[0]++] = new ProcessoImpressao(fila, tamanho[0]);
+    }
+
+    // Getters necessários
+    public Processo[] getFila() {
+        return fila;
+    }
+
+    public int[] getTamanho() {
+        return tamanho;
+    }
 }

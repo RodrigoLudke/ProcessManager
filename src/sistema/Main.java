@@ -10,6 +10,7 @@ public class Main {
         final int MAX = 100;
         Processo[] fila = new Processo[MAX];
         int[] tamanho = {0}; // Usado como referência para leitura
+        GerenciadorProcessos Gerenciador = new GerenciadorProcessos();
 
         Scanner sc = new Scanner(System.in);
         int opcao;
@@ -32,25 +33,7 @@ public class Main {
                     System.out.println("Tipo (1=Calculo, 2=Gravação, 3=Leitura, 4=Impressão):");
                     int tipo = sc.nextInt();
                     sc.nextLine();
-                    if (tamanho[0] >= MAX) {
-                        System.out.println("Fila cheia!");
-                        break;
-                    }
-                    switch (tipo) {
-                        case 1 -> {
-                            System.out.print("Digite a expressão (ex: 5 + 3): ");
-                            String[] tokens = sc.nextLine().split(" ");
-                            fila[tamanho[0]++] = new ProcessoCalculo(new Expressao(Double.parseDouble(tokens[0]), Double.parseDouble(tokens[2]), tokens[1].charAt(0)));
-                        }
-                        case 2 -> {
-                            System.out.print("Digite a expressão para gravar: ");
-                            String[] tokens = sc.nextLine().split(" ");
-                            fila[tamanho[0]++] = new ProcessoGravacao(new Expressao(Double.parseDouble(tokens[0]), Double.parseDouble(tokens[2]), tokens[1].charAt(0)));
-                        }
-                        case 3 -> fila[tamanho[0]++] = new ProcessoLeitura(fila, tamanho);
-                        case 4 -> fila[tamanho[0]++] = new ProcessoImpressao(fila, tamanho[0]);
-                        default -> System.out.println("Tipo inválido!");
-                    }
+                    Gerenciador.criarProcesso(tipo, sc);
                 }
                 case 2 -> {
                     if (tamanho[0] == 0) {
