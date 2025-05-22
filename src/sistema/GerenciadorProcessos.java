@@ -32,5 +32,4 @@ public class GerenciadorProcessos {
         System.out.println("Processo não encontrado.");
     }
 
-    // Métodos para salvar e carregar podem ser implementados com ObjectOutputStream e ObjectInputStream
 }

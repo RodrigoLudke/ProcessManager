@@ -1,10 +1,12 @@
 package processos;
 
+// Superclasse abstrata para todos os processos
 public abstract class Processo {
     protected int pid;
+    private static int proximoPid = 1;
 
-    public Processo(int pid) {
-        this.pid = pid;
+    public Processo() {
+        this.pid = proximoPid++;
     }
 
     public int getPid() {
@@ -13,3 +15,4 @@ public abstract class Processo {
 
     public abstract void executar();
 }
+
