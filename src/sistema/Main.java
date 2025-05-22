@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final int MAX = 100;
-        Processo[] fila = new Processo[MAX];
-        int[] tamanho = {0}; // Usado como referência para leitura
-        GerenciadorProcessos Gerenciador = new GerenciadorProcessos();
+        GerenciadorProcessos gerenciador = new GerenciadorProcessos();
+
+        Processo[] fila = gerenciador.getFila();
+        int[] tamanho = gerenciador.getTamanho(); // Usado como referência para leitura
 
         Scanner sc = new Scanner(System.in);
         int opcao;
@@ -33,7 +33,7 @@ public class Main {
                     System.out.println("Tipo (1=Calculo, 2=Gravação, 3=Leitura, 4=Impressão):");
                     int tipo = sc.nextInt();
                     sc.nextLine();
-                    Gerenciador.criarProcesso(tipo, sc);
+                    gerenciador.criarProcesso(tipo, sc);
                 }
                 case 2 -> {
                     if (tamanho[0] == 0) {
