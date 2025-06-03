@@ -50,11 +50,13 @@ public class GerenciadorProcessos {
     private void criarProcessoGravacao(Scanner sc) {
         System.out.print("Digite a expressão para gravar: ");
         String[] tokens = sc.nextLine().split(" ");
-        fila[tamanho[0]++] = new ProcessoGravacao(new Expressao(
+        ProcessoGravacao processo = new ProcessoGravacao(new Expressao(
                 Double.parseDouble(tokens[0]),
                 Double.parseDouble(tokens[2]),
                 tokens[1].charAt(0)
         ));
+        fila[tamanho[0]++] = processo;
+        processo.executar(); // Executa o processo imediatamente
     }
 
     private void criarProcessoLeitura() {
