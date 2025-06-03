@@ -29,13 +29,22 @@ public class GerenciadorProcessos {
     }
 
     private void criarProcessoCalculo(Scanner sc) {
-        System.out.print("Digite a expressão (ex: 5 + 3): ");
-        String[] tokens = sc.nextLine().split(" ");
-        fila[tamanho[0]++] = new ProcessoCalculo(new Expressao(
-                Double.parseDouble(tokens[0]),
-                Double.parseDouble(tokens[2]),
-                tokens[1].charAt(0)
-        ));
+        while (true) {
+            System.out.print("Digite a expressão (ex: 5+3): ");
+            String input = sc.nextLine().replaceAll("\\s+", ""); // Remove espaços extras
+            String[] tokens = input.split("(?<=\\d)(?=\\D)|(?<=\\D)(?=\\d)"); // Divide entre números e operador
+
+            if (tokens.length == 3) {
+                fila[tamanho[0]++] = new ProcessoCalculo(new Expressao(
+                        Double.parseDouble(tokens[0]),
+                        Double.parseDouble(tokens[2]),
+                        tokens[1].charAt(0)
+                ));
+                break; // Sai do loop após entrada válida
+            } else {
+                System.out.println("Expressão inválida! Use o formato correto.");
+            }
+        }
     }
 
     private void criarProcessoGravacao(Scanner sc) {
