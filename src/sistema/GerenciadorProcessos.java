@@ -42,7 +42,7 @@ public class GerenciadorProcessos {
                 ));
                 break; // Sai do loop após entrada válida
             } else {
-                System.out.println("Expressão inválida! Use o formato correto.");
+                System.out.println("Expressão inválida! Use o formato correto. ");
             }
         }
     }
