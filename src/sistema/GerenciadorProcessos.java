@@ -60,11 +60,15 @@ public class GerenciadorProcessos {
     }
 
     private void criarProcessoLeitura() {
-        fila[tamanho[0]++] = new ProcessoLeitura(fila, tamanho);
+        ProcessoLeitura processo = new ProcessoLeitura(fila, tamanho);
+        fila[tamanho[0]++] = processo;
+        processo.executar(); // Executa o processo imediatamente
     }
 
     private void criarProcessoImpressao() {
-        fila[tamanho[0]++] = new ProcessoImpressao(fila, tamanho[0]);
+        ProcessoImpressao processo = new ProcessoImpressao(fila, tamanho[0]);
+        fila[tamanho[0]++] = processo;
+        processo.executar(); // Executa o processo imediatamente
     }
 
     // Getters necessários
