@@ -1,6 +1,8 @@
 package processos;
 
-public class Expressao {
+import java.io.Serializable;
+
+public class Expressao implements Serializable {
     private double op1;
     private double op2;
     private char operador;

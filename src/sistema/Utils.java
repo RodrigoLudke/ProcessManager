@@ -13,6 +13,7 @@ public class Utils {
             }
             System.out.println("Fila salva com sucesso.");
         } catch (IOException e) {
+            e.printStackTrace();
             System.err.println("Erro ao salvar a fila.");
         }
     }
