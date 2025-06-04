@@ -48,16 +48,24 @@ public class GerenciadorProcessos {
     }
 
     private void criarProcessoGravacao(Scanner sc) {
-        System.out.print("Digite a expressão para gravar: ");
-        String[] tokens = sc.nextLine().split(" ");
-        ProcessoGravacao processo = new ProcessoGravacao(new Expressao(
-                Double.parseDouble(tokens[0]),
-                Double.parseDouble(tokens[2]),
-                tokens[1].charAt(0)
-        ));
-        fila[tamanho[0]++] = processo;
-        processo.executar(); // Executa o processo imediatamente
-    }
+        while (true) {
+        System.out.print("Digite a expressão para gravar (ex: 5+3): ");
+        String input = sc.nextLine().replaceAll("\\s+", ""); // Remove espaços extras
+        String[] tokens = input.split("(?<=\\d)(?=\\D)|(?<=\\D)(?=\\d)"); // Divide entre números e operador
+
+        if (tokens.length == 3) {
+            ProcessoGravacao processo = new ProcessoGravacao(new Expressao(
+                    Double.parseDouble(tokens[0]),
+                    Double.parseDouble(tokens[2]),
+                    tokens[1].charAt(0)
+            ));
+            fila[tamanho[0]++] = processo;
+            processo.executar();
+            break;
+        } else {
+            System.out.println("Expressão inválida! Use o formato correto.");
+        }
+    }}
 
     private void criarProcessoLeitura() {
         ProcessoLeitura processo = new ProcessoLeitura(fila, tamanho);
