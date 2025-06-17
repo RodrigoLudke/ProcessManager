@@ -2,7 +2,6 @@ package processos;
 
 import java.io.Serializable;
 
-// Superclasse abstrata para todos os processos
 public abstract class Processo implements Serializable {
     protected int pid;
     private static int proximoPid = 1;
@@ -15,6 +14,9 @@ public abstract class Processo implements Serializable {
         return pid;
     }
 
+    public static void setProximoPid(int novoProximoPid) {
+        proximoPid = novoProximoPid;
+    }
+
     public abstract void executar();
 }
-
