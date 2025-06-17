@@ -23,6 +23,7 @@ public class Main {
                 3. Executar por PID
                 4. Salvar fila
                 5. Carregar fila
+                6. Créditos
                 0. Sair
             """);
             opcao = sc.nextInt();
@@ -62,6 +63,7 @@ public class Main {
                 }
                 case 4 -> Utils.salvar(fila, tamanho[0]);
                 case 5 -> tamanho[0] = Utils.carregar(fila);
+                case 6 -> System.out.println("Desenvolvido por Ana Julia Teixeira e Rodrigo Ludke");
             }
 
         } while (opcao != 0);
